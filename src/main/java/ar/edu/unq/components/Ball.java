@@ -35,6 +35,20 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 		double advanced = this.speed * deltaState.getDelta();
 		this.move(this.i * advanced, this.j * advanced);
 
+		if (this.getX() <= 0) {
+			this.setX(0);
+			this.i = -this.i;
+		} else if ((this.getX() + (this.radius * 2)) >= this.getGame().getDisplayWidth()) {
+			this.setX(this.getGame().getDisplayWidth() - (this.radius * 2));
+			this.i = -this.i;
+		} else if (this.getY() <= 0) {
+			this.setY(0);
+			this.j = -this.j;
+		} else if ((this.getY() + (this.radius * 2)) >= this.getGame().getDisplayHeight()) {
+			this.setY(this.getGame().getDisplayHeight() - (this.radius * 2));
+			this.j = -this.j;
+		}
+
 		super.update(deltaState);
 	}
 }
