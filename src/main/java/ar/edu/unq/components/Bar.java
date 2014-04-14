@@ -15,8 +15,12 @@ public class Bar extends GameComponent<ArkanoidLevel> {
 	private int height = Property.BAR_HEIGHT;
 	private Color color = Property.BAR_COLOR;
 	private double speed = Property.BAR_SPEED;
+	private double maxX;
+	private double minX;
 
-	public Bar() {
+	public Bar(double minX, double maxX) {
+		this.minX = minX;
+		this.maxX = (maxX - this.width);
 		this.setAppearance(new com.uqbar.vainilla.appearances.Rectangle(this.color, this.width, this.height));
 	}
 
@@ -31,9 +35,9 @@ public class Bar extends GameComponent<ArkanoidLevel> {
 	@Override
 	public void update(DeltaState deltaState) {
 		int direction = 0;
-		if (deltaState.isKeyBeingHold(Key.LEFT)) {
+		if (deltaState.isKeyBeingHold(Key.LEFT) && (this.getX() > this.minX)) {
 			direction = -1;
-		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
+		} else if (deltaState.isKeyBeingHold(Key.RIGHT) && (this.getX() < this.maxX)) {
 			direction = 1;
 		}
 

@@ -1,5 +1,6 @@
 package ar.edu.unq.scenes;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,8 +15,8 @@ public class ArkanoidLevel extends GameScene {
 
 	private Bar bar;
 
-	public ArkanoidLevel() {
-		this.bar = new Bar();
+	public ArkanoidLevel(Dimension dimension) {
+		this.bar = new Bar(0, dimension.getWidth());
 
 		this.addComponent(this.bar);
 	}

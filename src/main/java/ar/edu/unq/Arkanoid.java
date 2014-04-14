@@ -18,9 +18,9 @@ public class Arkanoid extends Game {
 
 	@Override
 	protected void setUpScenes() {
-		ArkanoidLevel scene = new ArkanoidLevel();
+		ArkanoidLevel scene = new ArkanoidLevel(dimension);
 		scene.addBall(new Ball());
-
+		
 		this.setCurrentScene(scene);
 	}
 
