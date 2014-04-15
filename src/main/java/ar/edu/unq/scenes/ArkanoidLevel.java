@@ -16,7 +16,7 @@ public class ArkanoidLevel extends GameScene {
 	private Bar bar;
 
 	public ArkanoidLevel(Dimension dimension) {
-		this.bar = new Bar(0, dimension.getWidth());
+		this.bar = new Bar();
 
 		this.addComponent(this.bar);
 	}
@@ -32,5 +32,17 @@ public class ArkanoidLevel extends GameScene {
 	
 	public Bar getBar(){
 		return this.bar;
+	}
+	
+	public double getLeftLimit() {
+		return 0;
+	}
+	
+	public double getRightLimit() {
+		return this.getGame().getDisplayWidth();
+	}
+
+	public double getTopLimit() {
+		return 0;
 	}
 }
