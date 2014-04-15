@@ -30,10 +30,10 @@ public class BlockCollisionRule implements BallRule {
 			ball.setY(this.blockDetected.getTopBounds().getTop() - 1 - ball.getAppearance().getHeight());
 			ball.inverseY();
 		} else if (this.collidesWithBounds(ball, this.blockDetected.getLeftBounds())) {
-			ball.setX(this.blockDetected.getLeftBounds().getLeft() - 1);
+			ball.setX(this.blockDetected.getLeftBounds().getLeft() - 1 - ball.getAppearance().getWidth());
 			ball.inverseX();
 		} else if (this.collidesWithBounds(ball, this.blockDetected.getRightBounds())) {
-			ball.setX(this.blockDetected.getRightBounds().getRight() + 1 - ball.getAppearance().getWidth());
+			ball.setX(this.blockDetected.getRightBounds().getRight() + 1);
 			ball.inverseX();
 		} else if (this.collidesWithBounds(ball, this.blockDetected.getBottomBounds())) {
 			ball.setY(this.blockDetected.getBottomBounds().getBottom() + 1);
