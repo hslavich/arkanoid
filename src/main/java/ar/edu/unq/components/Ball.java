@@ -6,6 +6,8 @@ import java.util.List;
 
 import rules.BallRule;
 import rules.ColisionRule;
+import rules.LateralCollsionRule;
+import rules.MovementRule;
 import utils.Vector2D;
 import ar.edu.unq.scenes.ArkanoidLevel;
 import ar.edu.unq.utils.Property;
@@ -19,19 +21,19 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 	private int radius = Property.BALL_RADIUS;
 	private Color color = Property.BALL_COLOR;
 	private double speed = Property.BALL_SPEED;
-	private double i, j;
-	
 	private Vector2D direction;
 	private List<BallRule> rules = new ArrayList<BallRule>();
 	
 
 	public Ball() {
-		this.direction = new Vector2D(10, 10).asVersor();
+		this.direction = new Vector2D(0.5, -0.5);
 		this.setAppearance(new Circle(this.color, 2 * this.radius));
 	}
 	
 	private void initRules() {
 		this.rules.add(new ColisionRule(this.getScene().getBar()));	
+		this.rules.add(new LateralCollsionRule());
+		this.rules.add(new MovementRule());
 	}	
 	
 	private List<BallRule> getRules() {
@@ -45,32 +47,12 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 	public void onSceneActivated() {
 		this.setX(this.getGame().getDisplayWidth() / 2);
 		this.setY(this.getGame().getDisplayHeight() - 50);
-		this.i = 0.5;
-		this.j = -0.5;
 
 		super.onSceneActivated();
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		double advanced = this.speed * deltaState.getDelta();
-		this.move(this.i * advanced, this.j * advanced);
-		
-		
-		if (this.getX() <= this.getScene().getLeftLimit()) {
-			this.setX(0);
-			this.i = -this.i;
-		} else if ((this.getX() + (this.radius * 2)) >= this.getScene().getRightLimit()) {
-			this.setX(this.getGame().getDisplayWidth() - (this.radius * 2));
-			this.i = -this.i;
-		} else if (this.getY() <= this.getScene().getTopLimit()) {
-			this.setY(0);
-			this.j = -this.j;
-		} else if ((this.getY() + (this.radius * 2)) >= this.getGame().getDisplayHeight()) {
-			this.setY(this.getGame().getDisplayHeight() - (this.radius * 2));
-			this.j = -this.j;
-		}
-		
 		Vector2D nuevaPosicion = this.direction.producto(speed * deltaState.getDelta()).suma(new Vector2D(this.getX(), this.getY()));
 		for(BallRule rule : this.getRules()) {
 			if(rule.mustApply(this, nuevaPosicion, this.getScene())) {
@@ -82,15 +64,15 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 		super.update(deltaState);
 	}
 	
-	public void faster() {
-		this.speed = this.speed + Property.BALL_SPEED_STEP;
-	}	
-	
-	public void setDireccion(Vector2D vector2d) {
+	public void setDirection(Vector2D vector2d) {
 		this.direction = vector2d.asVersor();
 	}
 
 	public Vector2D getDireccion() {
 		return this.direction;
-	}	
+	}
+	
+	public double getDiameter() {
+		return this.radius * 2;
+	}
 }

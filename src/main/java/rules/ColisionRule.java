@@ -1,6 +1,5 @@
 package rules;
 
-
 import utils.Vector2D;
 import ar.edu.unq.components.Ball;
 import ar.edu.unq.components.Bar;
@@ -35,27 +34,24 @@ public class ColisionRule implements BallRule {
 
 	@Override
 	public void apply(Ball ball, Vector2D nuevaPosicion, ArkanoidLevel scene) {
-			double puntoDeColision = getPuntoColision(bar, ball,
-					nuevaPosicion);
+		double puntoDeColision = getPuntoColision(bar, ball,
+				nuevaPosicion);
 
-			double signoY = Math.signum(ball.getDireccion().getY());
+		double signoY = Math.signum(ball.getDireccion().getY());
 
-			double anguloNuevo = ((anguloMenor - anguloMayor) / bar
-					.getAppearance().getWidth())
-					* puntoDeColision
-					+ anguloMayor;
-			// aprovecho e invierto el signo que traia Y con el truquito de
-			// multiplicarlo por -1
-			ball.setDireccion(new Vector2D(Math.sin(anguloNuevo), -1 * signoY
-					* Math.cos(anguloNuevo)));
+		double anguloNuevo = ((anguloMenor - anguloMayor) / bar
+				.getAppearance().getWidth())
+				* puntoDeColision
+				+ anguloMayor;
+		// aprovecho e invierto el signo que traia Y con el truquito de
+		// multiplicarlo por -1
+		ball.setDirection(new Vector2D(Math.sin(anguloNuevo), -1 * signoY
+				* Math.cos(anguloNuevo)));
 
-			// pelota.setX(nuevaPosicion.getX());
-			ball.setY(signoY > 0 ? bar.getY()
-					- ball.getAppearance().getHeight() - 1 : bar.getY()
-					+ bar.getAppearance().getHeight() + 1);
-			
-			ball.faster();
-
+		// pelota.setX(nuevaPosicion.getX());
+		ball.setY(signoY > 0 ? bar.getY()
+				- ball.getAppearance().getHeight() - 1 : bar.getY()
+				+ bar.getAppearance().getHeight() + 1);
 	}
 	
 	private double getPuntoColision(Bar bar, Ball ball,
