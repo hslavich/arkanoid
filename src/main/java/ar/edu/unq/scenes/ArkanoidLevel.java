@@ -26,10 +26,16 @@ public class ArkanoidLevel extends GameScene {
 
 	private void createBlocks() {
 		this.addBlock(new Block(Color.BLACK, 100, 100));
+		this.addBlock(new Block(Color.BLACK, 50, 100));
+		this.addBlock(new Block(Color.BLACK, 150, 100));
 	}
 
 	public Collection<Ball> getBalls() {
 		return this.balls;
+	}
+
+	public Collection<Block> getBlocks() {
+		return this.blocks;
 	}
 
 	public void addBall(Ball ball) {

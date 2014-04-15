@@ -17,22 +17,14 @@ public class LateralCollisionRule implements BallRule {
 	public void apply(Ball ball, Vector2D newpos, ArkanoidLevel scene) {
 		if (newpos.getX() <= scene.getLeftLimit()) {
 			ball.setX(scene.getLeftLimit());
-			this.inverseX(ball);
+			ball.inverseX();
 		} else if ((newpos.getX() + (ball.getDiameter())) >= scene.getRightLimit()) {
 			ball.setX(scene.getGame().getDisplayWidth() - ball.getDiameter());
-			this.inverseX(ball);
+			ball.inverseX();
 		} else if (newpos.getY() <= scene.getTopLimit()) {
 			ball.setY(scene.getTopLimit());
-			this.inverseY(ball);
+			ball.inverseY();
 		}
-	}
-	
-	protected void inverseX(Ball ball) {
-		ball.setDirection(new Vector2D(-ball.getDireccion().getX(), ball.getDireccion().getY()));
-	}
-	
-	protected void inverseY(Ball ball) {
-		ball.setDirection(new Vector2D(ball.getDireccion().getX(), -ball.getDireccion().getY()));
 	}
 
 }

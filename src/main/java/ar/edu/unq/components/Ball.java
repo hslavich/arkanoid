@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rules.BallRule;
+import rules.BlockCollisionRule;
 import rules.ColisionRule;
 import rules.LateralCollisionRule;
 import rules.MovementRule;
@@ -23,21 +24,21 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 	private double speed = Property.BALL_SPEED;
 	private Vector2D direction;
 	private List<BallRule> rules = new ArrayList<BallRule>();
-	
 
 	public Ball() {
 		this.direction = new Vector2D(0.5, -0.5);
 		this.setAppearance(new Circle(this.color, 2 * this.radius));
 	}
-	
+
 	private void initRules() {
-		this.rules.add(new ColisionRule(this.getScene().getBar()));	
+		this.rules.add(new ColisionRule(this.getScene().getBar()));
 		this.rules.add(new LateralCollisionRule());
+		this.rules.add(new BlockCollisionRule());
 		this.rules.add(new MovementRule());
-	}	
-	
+	}
+
 	private List<BallRule> getRules() {
-		if(this.rules.isEmpty()) {
+		if (this.rules.isEmpty()) {
 			this.initRules();
 		}
 		return this.rules;
@@ -53,17 +54,17 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 
 	@Override
 	public void update(DeltaState deltaState) {
-		Vector2D nuevaPosicion = this.direction.producto(speed * deltaState.getDelta()).suma(new Vector2D(this.getX(), this.getY()));
-		for(BallRule rule : this.getRules()) {
-			if(rule.mustApply(this, nuevaPosicion, this.getScene())) {
+		Vector2D nuevaPosicion = this.direction.producto(this.speed * deltaState.getDelta()).suma(new Vector2D(this.getX(), this.getY()));
+		for (BallRule rule : this.getRules()) {
+			if (rule.mustApply(this, nuevaPosicion, this.getScene())) {
 				rule.apply(this, nuevaPosicion, this.getScene());
 				break;
 			}
-		}		
+		}
 
 		super.update(deltaState);
 	}
-	
+
 	public void setDirection(Vector2D vector2d) {
 		this.direction = vector2d.asVersor();
 	}
@@ -71,8 +72,16 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 	public Vector2D getDireccion() {
 		return this.direction;
 	}
-	
+
 	public double getDiameter() {
 		return this.radius * 2;
+	}
+
+	public void inverseX() {
+		this.setDirection(new Vector2D(-this.getDireccion().getX(), this.getDireccion().getY()));
+	}
+
+	public void inverseY() {
+		this.setDirection(new Vector2D(this.getDireccion().getX(), -this.getDireccion().getY()));
 	}
 }
