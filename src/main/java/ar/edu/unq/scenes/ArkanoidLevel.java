@@ -8,6 +8,7 @@ import java.util.Collection;
 import ar.edu.unq.components.Ball;
 import ar.edu.unq.components.Bar;
 import ar.edu.unq.components.Block;
+import ar.edu.unq.utils.Property;
 
 import com.uqbar.vainilla.GameScene;
 
@@ -25,9 +26,12 @@ public class ArkanoidLevel extends GameScene {
 	}
 
 	private void createBlocks() {
-		this.addBlock(new Block(Color.BLACK, 100, 100));
-		this.addBlock(new Block(Color.BLACK, 50, 100));
-		this.addBlock(new Block(Color.BLACK, 150, 100));
+		Color[] colors = new Color[]{Color.YELLOW, Color.GREEN, Color.DARK_GRAY, Color.MAGENTA};
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 10; j++) {
+				this.addBlock(new Block(colors[(j+i) % colors.length], j * Property.BLOCK_WIDTH + 1, 100 + i * Property.BLOCK_HEIGHT + 1));
+			}
+		}
 	}
 
 	public Collection<Ball> getBalls() {
@@ -46,6 +50,11 @@ public class ArkanoidLevel extends GameScene {
 	public void addBlock(Block block) {
 		this.blocks.add(block);
 		this.addComponent(block);
+	}
+	
+	public void removeBlock(Block block) {
+		this.blocks.remove(block);
+		this.removeComponent(block);
 	}
 
 	public Bar getBar() {
