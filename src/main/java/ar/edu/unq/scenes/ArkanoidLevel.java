@@ -29,4 +29,8 @@ public class ArkanoidLevel extends GameScene {
 		this.balls.add(ball);
 		this.addComponent(ball);
 	}
+	
+	public Bar getBar(){
+		return this.bar;
+	}
 }
