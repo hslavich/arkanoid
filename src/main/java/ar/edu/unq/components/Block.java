@@ -35,6 +35,7 @@ public class Block extends GameComponent<ArkanoidLevel> {
 	}
 
 	public void collision() {
+		this.getScene().updateScore();
 		this.getScene().removeBlock(this);
 	}
 }

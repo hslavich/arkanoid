@@ -14,4 +14,9 @@ public class Property {
 
 	public static final int BLOCK_HEIGHT = 20;
 	public static final int BLOCK_WIDTH = 40;
+
+	public static final double SCORE_X = 10;
+	public static final double SCORE_Y = 10;
+
+	public static final int SCORE_BLOCK = 10;
 }
