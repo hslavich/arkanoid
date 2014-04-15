@@ -6,7 +6,7 @@ import java.util.List;
 
 import rules.BallRule;
 import rules.ColisionRule;
-import rules.LateralCollsionRule;
+import rules.LateralCollisionRule;
 import rules.MovementRule;
 import utils.Vector2D;
 import ar.edu.unq.scenes.ArkanoidLevel;
@@ -32,7 +32,7 @@ public class Ball extends GameComponent<ArkanoidLevel> {
 	
 	private void initRules() {
 		this.rules.add(new ColisionRule(this.getScene().getBar()));	
-		this.rules.add(new LateralCollsionRule());
+		this.rules.add(new LateralCollisionRule());
 		this.rules.add(new MovementRule());
 	}	
 	
