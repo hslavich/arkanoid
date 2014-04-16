@@ -10,9 +10,12 @@ import com.uqbar.vainilla.appearances.Rectangle;
 import com.uqbar.vainilla.colissions.Bounds;
 
 public class Block extends GameComponent<ArkanoidLevel> {
+	
+	private int lives;
 
-	public Block(Color color, double x, double y) {
+	public Block(Color color, double x, double y, int lives) {
 		super(x, y);
+		this.lives = lives;
 		this.setAppearance(new Rectangle(color, Property.BLOCK_WIDTH, Property.BLOCK_HEIGHT));
 	}
 
@@ -35,7 +38,18 @@ public class Block extends GameComponent<ArkanoidLevel> {
 	}
 
 	public void collision() {
-		this.getScene().updateScore();
-		this.getScene().removeBlock(this);
+		this.setLives(this.getLives() - 1);
+		if(this.lives == 0){
+			this.getScene().updateScore();
+			this.getScene().removeBlock(this);
+		}
+	}
+	
+	public void setLives(int l){
+		this.lives = l;
+	}
+	
+	public int getLives(){
+		return this.lives;
 	}
 }

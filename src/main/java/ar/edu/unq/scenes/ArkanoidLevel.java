@@ -34,8 +34,12 @@ public class ArkanoidLevel extends GameScene {
 		Color[] colors = new Color[] { Color.YELLOW, Color.GREEN, Color.DARK_GRAY, Color.MAGENTA };
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 10; j++) {
-				this.addBlock(new Block(colors[(j + i) % colors.length], j * Property.BLOCK_WIDTH + 1, 100 + i * Property.BLOCK_HEIGHT + 1));
+				this.addBlock(new Block(colors[(j + i) % colors.length], j * Property.BLOCK_WIDTH + 1, 100 + i * Property.BLOCK_HEIGHT + 1, 1));
 			}
+		}
+		Color[] colors2 = new Color[] { Color.BLACK, Color.RED};
+		for (int i = 0; i < 10; i++) {
+			this.addBlock(new Block(colors2[(i) % colors2.length], i * Property.BLOCK_WIDTH + 1, 220 + Property.BLOCK_HEIGHT + 1, 2));
 		}
 	}
 
